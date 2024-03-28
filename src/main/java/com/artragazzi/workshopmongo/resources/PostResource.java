@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,5 +45,16 @@ public class PostResource {
         text = URL.decodeParam(text);
         List<Post> list = postService.findByTitle(text);
         return ResponseEntity.ok().body(list);
+    }
+
+    @RequestMapping(value = "/fullsearch", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> fullSearch(@RequestParam(value = "text")String text,@RequestParam(value = "dateMin") String dateMin ,@RequestParam(value = "dateMax")String dateMax){
+        text = URL.decodeParam(text);
+        Date min = URL.convertDate(dateMin, new Date(0L));
+        Date max = URL.convertDate(dateMax, new Date());
+        List<Post> list = postService.fullSearch(text,min,max);
+        return ResponseEntity.ok().body(list);
+
+
     }
 }
