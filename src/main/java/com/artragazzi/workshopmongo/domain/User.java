@@ -1,10 +1,13 @@
 package com.artragazzi.workshopmongo.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Document(collection="user")
 public class User implements Serializable{
@@ -14,6 +17,9 @@ public class User implements Serializable{
     private String id;
     private String name;
     private String email;
+    @DBRef(lazy = true)
+    private List<Post> posts = new ArrayList<>();
+
 
 
 
@@ -52,9 +58,9 @@ public class User implements Serializable{
         this.email = email;
     }
 
-    
 
-    
-    
-    
+    public List<Post> getPosts() {
+        return posts;
+    }
+
 }
