@@ -1,10 +1,13 @@
 package com.artragazzi.workshopmongo.domain;
 
 import com.artragazzi.workshopmongo.dto.AuthorDTO;
+import com.artragazzi.workshopmongo.dto.CommentDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Document
@@ -15,6 +18,8 @@ public class Post {
     private String title;
     private String body;
     private AuthorDTO author;
+    private List<CommentDTO> comments = new ArrayList<>();
+
 
     public Post(){}
 
@@ -77,5 +82,9 @@ public class Post {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public List<CommentDTO> getComments() {
+        return comments;
     }
 }
